@@ -1,3 +1,8 @@
+import java.util.*;
+
+
+
+
 class Spirolateralkurven{
 	public static void main(String... args){
 		
@@ -8,6 +13,12 @@ class Spirolateralkurven{
 		final int repetitions = Integer.parseInt(args[4]);
 		int paintedAngle = 0;
 		int count = 0;
+		Double xOffset = 0.0;
+		Double yOffset = 0.0;
+		
+		List<Double> xPositions = new ArrayList<Double>();
+		List<Double> yPositions = new ArrayList<Double>();
+
 
 		if ((angle * repetitions)%360 == 0){
 			System.out.println("Spirolateralkurve mit Winkel="+angle+" und Widerholungen="+repetitions+" nicht moeglich!");
@@ -15,8 +26,38 @@ class Spirolateralkurven{
 			return;
 		}
 		
+
 		
 		TurtlePainter turtle = new TurtlePainter(sizeX, sizeY, logicalSize);
+		do{
+			for (int i = 1; i<= repetitions; i++){
+				turtle.fly(i);
+				turtle.turn(angle);	
+				paintedAngle = paintedAngle + angle;
+				xPositions.add(turtle.getXPos());
+				yPositions.add(turtle.getYPos());
+				
+			}
+			count++;
+			if(count >=1000){
+				break;
+			}
+		} while(paintedAngle%360 != 0);
+
+
+
+		for(Double x:xPositions){
+			xOffset = xOffset + x;
+		}
+		xOffset = - xOffset/xPositions.size();
+
+		for(Double y:yPositions){
+			yOffset = yOffset + y;
+		}
+		yOffset = - yOffset/yPositions.size();
+
+
+		turtle.flyTo(xOffset,yOffset);
 		turtle.colors(repetitions);
 
 		do{

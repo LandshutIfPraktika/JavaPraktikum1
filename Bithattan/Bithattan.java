@@ -6,7 +6,7 @@ public class Bithattan {
 			return x;
 		}
 	}
-	
+	//Frage wegen else/if Schlange
 	public static int distToEdge(int[] point, int size){
 		int dist = size-1;
 		if (point[0] < dist){
